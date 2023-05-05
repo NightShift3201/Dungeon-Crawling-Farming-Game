@@ -43,17 +43,25 @@ public class PlayerMovement : MonoBehaviour
                 attackCounter = attackSpeed;
                 animator.SetTrigger("Attacking");
                 swordAnimator.SetTrigger("Attacking");
+                rb.velocity = Vector2.zero;
+
             }
+
+            canMove = true;
 
         }
         else{
             attackCounter-=Time.deltaTime;
+            canMove=false;
+            animator.SetFloat("Speed",0);
         }
     }
 
     void FixedUpdate(){
-        if(canMove)
-            rb.MovePosition(rb.position + movement.normalized *moveSpeed*Time.fixedDeltaTime);
+        if(canMove){
+            //rb.MovePosition(rb.position + movement.normalized *moveSpeed*Time.fixedDeltaTime);\
+            rb.velocity = new Vector2(movement.x*moveSpeed, movement.y*moveSpeed);
+        }
     }
 
     public void LockMovement(){
