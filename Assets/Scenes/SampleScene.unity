@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba28ccc5d379c554f865bc46f9bdfbd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamagePopup: {fileID: 3272038893120980473, guid: 37eca95288a77e34d9f961f222fe9d2e, type: 3}
   rb: {fileID: 250485095}
   weight: 1
   moveSpeed: 1
@@ -278,7 +279,7 @@ MonoBehaviour:
   attackTime: 2
   isKnockedBack: 0
   attacking: 0
-  health: 5
+  health: 1000
 --- !u!212 &250485092
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -746,8 +747,8 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!58 &554303196
-CircleCollider2D:
+--- !u!61 &554303196
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -759,9 +760,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.1}
+  m_Offset: {x: 0, y: -0.05}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.15}
+    oldSize: {x: 0.8125, y: 1.3125}
+    newSize: {x: 1.5, y: 1.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Size: {x: 0.6626822, y: 0.22852445}
+  m_EdgeRadius: 0
 --- !u!1 &946179793
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +783,7 @@ GameObject:
   m_Component:
   - component: {fileID: 946179795}
   - component: {fileID: 946179794}
+  - component: {fileID: 946179797}
   - component: {fileID: 946179796}
   m_Layer: 0
   m_Name: CM vcam1
@@ -844,6 +856,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a8a05de0ac134f4f9d01bef6b9da077, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &946179797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946179793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f7ca0239536314ba06257f6c2d657a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1073125170
@@ -1005,6 +1029,7 @@ GameObject:
   - component: {fileID: 1257483037}
   - component: {fileID: 1257483039}
   - component: {fileID: 1257483038}
+  - component: {fileID: 1257483040}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1082,6 +1107,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1257483040
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1257483036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 2
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1455534259
 GameObject:
   m_ObjectHideFlags: 0

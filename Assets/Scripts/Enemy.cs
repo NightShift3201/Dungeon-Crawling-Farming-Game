@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Enemy : MonoBehaviour
 {
     
+    public GameObject DamagePopup;
     Animator animator;
     public Rigidbody2D rb;
 
@@ -76,6 +78,7 @@ public class Enemy : MonoBehaviour
     }
     //KNOCKBACK AFTER PLAYER HIT
     public void Knockback(float knockbackForce) {
+        attackCooldown = attackTime; //resets attackcooldown after knockback
         Vector2 direction = (transform.position - GameObject.Find("Player").GetComponent<Transform>().position).normalized;
         StartCoroutine(MoveBack(direction, knockbackForce));
     }
@@ -87,7 +90,7 @@ public class Enemy : MonoBehaviour
         Vector2 startingPos = rb.position;
         while (elapsedTime < 0.1f) {
             float t = elapsedTime / 0.1f;
-            rb.MovePosition(Vector2.Lerp(startingPos, startingPos + direction * (knockbackForce - weight + 1), t));
+            rb.MovePosition(Vector2.Lerp(startingPos, startingPos + direction * (knockbackForce - weight + 2), t));
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -124,12 +127,14 @@ public class Enemy : MonoBehaviour
         float elapsedTime = 0;
         Vector2 startingPos = rb.position;
         Vector2 direction = (GameObject.Find("Player").GetComponent<Transform>().position - transform.position);
-        yield return new WaitForSeconds(0.5f);
-        while (elapsedTime < 0.3f && !isKnockedBack) {
-            float t = elapsedTime / 0.3f;
-            rb.MovePosition(Vector2.Lerp(startingPos, startingPos + direction , t));
-            elapsedTime += Time.deltaTime;
-            yield return null;
+        yield return new WaitForSeconds(0.3f);
+        if(attackCooldown<=attackTime-0.2f){
+            while (elapsedTime < 0.2f && !isKnockedBack && Health>=0) {
+                float t = elapsedTime / 0.2f;
+                rb.MovePosition(Vector2.Lerp(startingPos, startingPos + direction , t));
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
         // Enable regular movement again
         attacking = false;
@@ -138,12 +143,15 @@ public class Enemy : MonoBehaviour
         if(col.gameObject.tag == "Player"){
             col.gameObject.GetComponent<PlayerMovement>().playerHurt(damage);
             col.gameObject.GetComponent<PlayerMovement>().knockbackPlayer(weight, transform.position);
+            //CameraShake.Instance.ShakeCamera(2,0.5f);
         }
     }
 
     public void TakeDamage(float damage){
         Health-=damage;
         animator.SetTrigger("Hurt");
+        var text = Instantiate(DamagePopup, transform.position,Quaternion.identity);
+        text.GetComponent<TextMeshPro>().text = damage.ToString();
     }
 
     public void Defeated(){
