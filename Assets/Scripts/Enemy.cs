@@ -5,7 +5,7 @@ using TMPro;
 
 public class Enemy : MonoBehaviour
 {
-    
+    public DungeonRoomManager RoomManager;
     public GameObject DamagePopup;
     Animator animator;
     public Rigidbody2D rb;
@@ -36,6 +36,7 @@ public class Enemy : MonoBehaviour
 
             if(health<=0){
                 Defeated();
+                RoomManager.numberOfSlimes-=1;
             }
         }
         get{
@@ -61,6 +62,10 @@ public class Enemy : MonoBehaviour
         }
         else{
             attackCooldown-=Time.deltaTime;
+        }
+
+        if(damageCooldown>0f){
+            damageCooldown-=Time.deltaTime;
         }
     }
 
@@ -139,11 +144,20 @@ public class Enemy : MonoBehaviour
         // Enable regular movement again
         attacking = false;
     }
+
+    public float damageCooldown;
+    float damageTime=0.5f;
     public void OnCollisionEnter2D(Collision2D col){
-        if(col.gameObject.tag == "Player"){
-            col.gameObject.GetComponent<PlayerMovement>().playerHurt(damage);
-            col.gameObject.GetComponent<PlayerMovement>().knockbackPlayer(weight, transform.position);
-            //CameraShake.Instance.ShakeCamera(2,0.5f);
+        if(damageCooldown<=0f){
+            if(col.gameObject.tag == "Player"){
+                PlayerMovement player = col.gameObject.GetComponent<PlayerMovement>();
+                player.playerHurt(damage);
+                player.knockbackPlayer(weight, transform.position);
+                player.Knockback(1f, transform.position);
+                damageCooldown=damageTime;
+                //CameraShake.Instance.ShakeCamera(2,0.5f);
+            }
+            
         }
     }
 

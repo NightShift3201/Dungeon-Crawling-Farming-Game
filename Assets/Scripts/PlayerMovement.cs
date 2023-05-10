@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GameObject DamagePopup;
     public float moveSpeed = 5f;
 
     public Rigidbody2D rb;
@@ -28,15 +30,19 @@ public class PlayerMovement : MonoBehaviour
 
     public float invincibility;
     public bool isInvincible;
+    public bool isKnockedBack;
+
+    public HealthBar healthBar;
 
     void Start(){
         health = maxHealth;
+        healthBar.maxHealth(health);
     }
 
     public float Health{
         set{
             health=value;
-
+            healthBar.setHealth(health);
             if(health<=0){
                 Defeated();
             }
@@ -121,10 +127,31 @@ public class PlayerMovement : MonoBehaviour
         // Enable regular movement again
         isDashing = false;
     }
+    public void Knockback(float knockbackForce, Vector3 enemyPosition) {
+        Vector2 direction = (transform.position - enemyPosition).normalized;
+        StartCoroutine(MoveBack(direction, knockbackForce));
+    }
+
+    IEnumerator MoveBack(Vector2 direction, float knockbackForce) {
+        isKnockedBack = true;
+
+        float elapsedTime = 0;
+        Vector2 startingPos = rb.position;
+        while (elapsedTime < 0.1f) {
+            float t = elapsedTime / 0.1f;
+            rb.MovePosition(Vector2.Lerp(startingPos, startingPos + direction * (knockbackForce+0.5f), t));
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        isKnockedBack = false;
+    }
 
     public void playerHurt(float damage){
         if(!isInvincible){
             Health-=damage;
+            var text = Instantiate(DamagePopup, transform.position,Quaternion.identity);
+            text.GetComponent<TextMeshPro>().text = damage.ToString();
             StartCoroutine(FlickerCoroutine());
         }
 
@@ -137,14 +164,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate(){
-        if(canMove&&!isDashing){
+        if(canMove&&!isDashing&&!isKnockedBack){
             rb.MovePosition(rb.position + movement.normalized *moveSpeed*Time.fixedDeltaTime);
             //rb.AddForce(movement.normalized*moveSpeed*Time.fixedDeltaTime*1000);
         }
     }
 
     public void Defeated(){
-
+        animator.SetTrigger("Death");
+        enabled = false;
     }
 
     public SpriteRenderer spriteRenderer;
