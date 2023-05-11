@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RoomManager = GameObject.Find("DungeonRoomManager").GetComponent<DungeonRoomManager>();
         animator = GetComponent<Animator>();
     }
 

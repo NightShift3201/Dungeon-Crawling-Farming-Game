@@ -35,7 +35,11 @@ public class PlayerMovement : MonoBehaviour
     public HealthBar healthBar;
 
     void Start(){
-        health = maxHealth;
+        if(!PlayerPrefs.HasKey("Health")){
+            Health = 10;
+        }
+        else
+            Health = PlayerPrefs.GetFloat("Health");
         healthBar.maxHealth(health);
     }
 
@@ -43,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         set{
             health=value;
             healthBar.setHealth(health);
+            PlayerPrefs.SetFloat("Health", health);
             if(health<=0){
                 Defeated();
             }
@@ -195,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
         }
         spriteRenderer.color = Color.white;
     }
+
 
 
 }
