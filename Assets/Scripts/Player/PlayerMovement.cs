@@ -28,26 +28,25 @@ public class PlayerMovement : MonoBehaviour
     public float health;
     public float maxHealth;
 
-    public float invincibility;
-    public bool isInvincible;
+    //public float invincibility;
+    //public bool isInvincible;
     public bool isKnockedBack;
 
     public HealthBar healthBar;
+    public FloatSO healthSO;
 
     void Start(){
-        if(!PlayerPrefs.HasKey("Health")){
-            Health = 10;
-        }
-        else
-            Health = PlayerPrefs.GetFloat("Health");
-        healthBar.maxHealth(health);
+        Health = healthSO.Value;
+        healthBar.maxHealth(maxHealth);
+        healthBar.setHealth(healthSO.Value);
+        
     }
 
     public float Health{
         set{
             health=value;
+            healthSO.Value = health;
             healthBar.setHealth(health);
-            PlayerPrefs.SetFloat("Health", health);
             if(health<=0){
                 Defeated();
             }
@@ -61,13 +60,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 
-        if(invincibility<=0f){
-            isInvincible = false;
-        }
-        else{
-            invincibility-=Time.deltaTime;
-            isInvincible = true;
-        }
+
+
         //GET MOVEMENT INPUT/ANIMATION
 
             movement.x = Input.GetAxisRaw("Horizontal");
@@ -153,12 +147,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void playerHurt(float damage){
-        if(!isInvincible){
-            Health-=damage;
-            var text = Instantiate(DamagePopup, transform.position,Quaternion.identity);
-            text.GetComponent<TextMeshPro>().text = damage.ToString();
-            StartCoroutine(FlickerCoroutine());
-        }
+        Health-=damage;
+        var text = Instantiate(DamagePopup, transform.position,Quaternion.identity);
+        text.GetComponent<TextMeshPro>().text = damage.ToString();
+        StartCoroutine(FlickerCoroutine());
 
         //animator.SetTrigger("Hit");
         //cameraAnimator.SetTrigger("Shake");

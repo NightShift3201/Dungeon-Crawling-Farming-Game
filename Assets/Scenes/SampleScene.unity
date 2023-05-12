@@ -626,10 +626,9 @@ MonoBehaviour:
   currentDashTime: 0
   health: 0
   maxHealth: 10
-  invincibility: 1
-  isInvincible: 0
   isKnockedBack: 0
   healthBar: {fileID: 1205187743}
+  healthSO: {fileID: 11400000, guid: 33ee69170e8ce9146946d4d3406b12d1, type: 2}
   spriteRenderer: {fileID: 554303191}
   flickerTime: 0.1
   flickerCount: 1
