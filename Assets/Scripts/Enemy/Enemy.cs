@@ -7,18 +7,18 @@ public class Enemy : MonoBehaviour
 {
     public DungeonRoomManager RoomManager;
     public GameObject DamagePopup;
-    Animator animator;
+    public Animator animator;
     public Rigidbody2D rb;
 
     public float weight;
     public float moveSpeed;
     public float damage;
 
-
+    public LootDrop loot;
 
     public SpriteRenderer spriteRenderer;
-    public float flickerTime = 0.05f;
-    public int flickerCount = 3;
+    private float flickerTime = 0.1f;
+    public int flickerCount = 1;
 
 
     public PlayerDetection detectionZone;
@@ -57,31 +57,37 @@ public class Enemy : MonoBehaviour
     {
         if(attackCooldown<=0f){
             if(attackZone.inRange.Count>0){
-                StartCoroutine(Attack());
+                Attack();
                 attackCooldown = attackTime;
             }
         }
         else{
             attackCooldown-=Time.deltaTime;
         }
-
+        
+        //stops from continouslly hitting
         if(damageCooldown>0f){
             damageCooldown-=Time.deltaTime;
         }
     }
 
-    void FixedUpdate(){
+    public virtual void FixedUpdate(){
         //MOVEMENT
         if (!isKnockedBack &&!attacking&& detectionZone.detectedObj.Count > 0 && health!=0){
-            Vector2 direction = (detectionZone.detectedObj[0].transform.position - transform.position).normalized;
-            animator.SetFloat("Speed", direction.sqrMagnitude);
-            rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+            Move();
         }
         
         if(detectionZone.detectedObj.Count==0){
             animator.SetFloat("Speed", 0);
         }
     }
+
+    public void Move(){
+        Vector2 direction = (detectionZone.detectedObj[0].transform.position - transform.position).normalized;
+        animator.SetFloat("Speed", direction.sqrMagnitude);
+        rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+    }
+
     //KNOCKBACK AFTER PLAYER HIT
     public void Knockback(float knockbackForce) {
         attackCooldown = attackTime; //resets attackcooldown after knockback
@@ -125,7 +131,11 @@ public class Enemy : MonoBehaviour
     }
 
     //ENEMY DAMAGE
-    private IEnumerator Attack()
+    public virtual void Attack(){
+        StartCoroutine(AttackMovement());
+
+    }
+    private IEnumerator AttackMovement()
     {
         // Disable regular movement
         attacking = true;
@@ -153,8 +163,7 @@ public class Enemy : MonoBehaviour
             if(col.gameObject.tag == "Player"){
                 PlayerMovement player = col.gameObject.GetComponent<PlayerMovement>();
                 player.playerHurt(damage);
-                player.knockbackPlayer(weight, transform.position);
-                player.Knockback(1f, transform.position);
+                player.Knockback(weight, transform.position);
                 damageCooldown=damageTime;
                 //CameraShake.Instance.ShakeCamera(2,0.5f);
             }
@@ -173,7 +182,9 @@ public class Enemy : MonoBehaviour
         animator.SetTrigger("Defeated");
     }
 
-    public void RemoveEnemy(){
+
+    public void RemoveEnemy(){ //referenced in animation
+        loot.DropLoot();
         Destroy(gameObject);
     }
 }

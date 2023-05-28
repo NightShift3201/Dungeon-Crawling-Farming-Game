@@ -156,9 +156,6 @@ public class PlayerMovement : MonoBehaviour
         //cameraAnimator.SetTrigger("Shake");
     }
 
-    public void knockbackPlayer(float knockback,Vector2 enemyDirection){
-
-    }
 
     void FixedUpdate(){
         if(canMove&&!isDashing&&!isKnockedBack){

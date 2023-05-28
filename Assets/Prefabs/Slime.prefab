@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 445013427081708535}
   - component: {fileID: 445013427081708534}
   - component: {fileID: 445013427081708528}
+  - component: {fileID: 422718667145679888}
   - component: {fileID: 445013427081708533}
   - component: {fileID: 445013427081708532}
   - component: {fileID: 445013427081708538}
@@ -170,6 +171,7 @@ MonoBehaviour:
   weight: 1
   moveSpeed: 1
   damage: 1
+  loot: {fileID: 422718667145679888}
   spriteRenderer: {fileID: 445013427081708534}
   flickerTime: 0.1
   flickerCount: 1
@@ -181,6 +183,23 @@ MonoBehaviour:
   attacking: 0
   health: 5
   damageCooldown: 0
+--- !u!114 &422718667145679888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445013427081708530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16cee607a4d5f94e86cb4ec5120594e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundItemPrefab: {fileID: 2814943306564616137, guid: c8d6d3c91dc072f4da4fd9db3ee72d3c, type: 3}
+  drops:
+  - {fileID: 11400000, guid: 4d61ed8b5fccb634d879d0152e1ff805, type: 2}
+  - {fileID: 11400000, guid: 85e1cbd966a7c3549aba811378a6ece3, type: 2}
+  chance: 5000000064000000
 --- !u!50 &445013427081708533
 Rigidbody2D:
   serializedVersion: 4

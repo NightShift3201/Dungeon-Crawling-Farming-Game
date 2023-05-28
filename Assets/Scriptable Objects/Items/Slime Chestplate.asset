@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e083f8be11faf3e41a95e4a60f7752f4, type: 3}
   m_Name: Slime Chestplate
   m_EditorClassIdentifier: 
-  prefab: {fileID: 7448089463797692493, guid: 04c47b65506de934499474e56a5c0ec4, type: 3}
+  uiDisplay: {fileID: -629449016, guid: cf1ea5c5d936f70429daa7ea3676dd59, type: 3}
+  Id: 0
   type: 1
   description: Chestplate made out of slime. Sticky!
   attackDamage: 0

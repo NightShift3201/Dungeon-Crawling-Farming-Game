@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a80c140cb78f8b4f947e3edfd4f437d, type: 3}
   m_Name: Potato
   m_EditorClassIdentifier: 
-  prefab: {fileID: 2389383046720633410, guid: 3ec75849d1bfae140b04e38cb4971cd3, type: 3}
+  uiDisplay: {fileID: 1663986914, guid: 39ae1d0ca8758624dba37602f601f760, type: 3}
+  Id: 0
   type: 0
   description: A basic potato. Restores 10 health.
   hungerValue: 10

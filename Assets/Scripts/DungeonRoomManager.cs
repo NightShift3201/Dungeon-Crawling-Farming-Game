@@ -41,6 +41,7 @@ public class DungeonRoomManager : MonoBehaviour
         if(numberOfSlimes<=0){
             openDoors();
         }
+
     }
     public void openDoors(){
         for(int i =0;i<doorTiles.Count;i++){

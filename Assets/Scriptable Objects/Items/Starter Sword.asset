@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e083f8be11faf3e41a95e4a60f7752f4, type: 3}
   m_Name: Starter Sword
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3894091307297994715, guid: e33546a1a498e404bb6e697b629885c5, type: 3}
+  uiDisplay: {fileID: 1897636111, guid: cf1ea5c5d936f70429daa7ea3676dd59, type: 3}
+  Id: 0
   type: 1
   description: 'Starter sword. '
   attackDamage: 3

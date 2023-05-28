@@ -19,14 +19,14 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update(){
         if(Input.GetKeyDown(KeyCode.LeftShift)){
-            inventory.Save();
+            //inventory.Save();
         }
         if(Input.GetKeyDown(KeyCode.Tab)){
-            inventory.Load();
+            //inventory.Load();
         }
     }
 
     private void OnApplicationQuit(){
-        inventory.Container.Items.Clear();
+        inventory.Container.Items = new InventorySlot[24];
     }
 }
