@@ -19,10 +19,10 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update(){
         if(Input.GetKeyDown(KeyCode.LeftShift)){
-            //inventory.Save();
+            inventory.Save();
         }
         if(Input.GetKeyDown(KeyCode.Tab)){
-            //inventory.Load();
+            inventory.Load();
         }
     }
 

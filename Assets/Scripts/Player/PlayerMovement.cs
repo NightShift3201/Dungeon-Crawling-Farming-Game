@@ -14,8 +14,6 @@ public class PlayerMovement : MonoBehaviour
 
     Vector2 movement;
 
-    public float attackCounter;
-    public float attackSpeed;
     public bool canMove = true;
     bool isDashing = false;
 
@@ -80,22 +78,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     
-        //ATTACK
-        if(attackCounter<=0f){
-            if(Input.GetMouseButtonDown(0)){
-                attackCounter = attackSpeed;
-                animator.SetTrigger("Attacking");
-                swordAnimator.SetTrigger("Attacking");
-
-            }
-
-            canMove = true;
-        }
-        else{
-            attackCounter-=Time.deltaTime;
-            canMove=false;
-            animator.SetFloat("Speed",0);
-        }
 
 
         //DASH

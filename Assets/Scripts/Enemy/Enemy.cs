@@ -50,6 +50,7 @@ public class Enemy : MonoBehaviour
     {
         RoomManager = GameObject.Find("DungeonRoomManager").GetComponent<DungeonRoomManager>();
         animator = GetComponent<Animator>();
+        attacking = false;
     }
 
     // Update is called once per frame

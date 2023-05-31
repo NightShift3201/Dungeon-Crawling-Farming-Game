@@ -159,6 +159,8 @@ GameObject:
   - component: {fileID: 6485889015932889363}
   - component: {fileID: 6485889015932889372}
   - component: {fileID: 6485889015932889362}
+  - component: {fileID: 2078380330783422278}
+  - component: {fileID: 5591642329669952595}
   - component: {fileID: 6485889015932889361}
   - component: {fileID: 6485889015932889366}
   - component: {fileID: 6485889015932889360}
@@ -259,6 +261,39 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &2078380330783422278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485889015932889373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd6df7366e056e468618c7d5396ea59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
+  hotbar: {fileID: 0}
+  plantable: {fileID: 0}
+  plants: {fileID: 0}
+--- !u!114 &5591642329669952595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6485889015932889373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1384acadcf85aae4dab83176957bc91b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCounter: 0
+  attackSpeed: 0.5
+  animator: {fileID: 6485889015932889360}
+  swordAnimator: {fileID: 6485889015436722430}
+  movement: {fileID: 6485889015932889361}
 --- !u!114 &6485889015932889361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,8 +311,6 @@ MonoBehaviour:
   rb: {fileID: 6485889015932889362}
   animator: {fileID: 6485889015932889360}
   swordAnimator: {fileID: 6485889015436722430}
-  attackCounter: 0
-  attackSpeed: 0.5
   canMove: 1
   dashTime: 1
   currentDashTime: 0
