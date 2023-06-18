@@ -22,6 +22,9 @@ public class DungeonRoomManager : MonoBehaviour
     public List<Tile> doorTiles = new List<Tile>();
     public List<Vector3Int> doorTileLocation = new List<Vector3Int>();
 
+    public Vector3 chestPosition;
+    public int chestSpawnChance;
+
     public GameObject gameOverUI;
 
     // Start is called before the first frame update

@@ -17,13 +17,15 @@ public class DisplayHotbar : MonoBehaviour
 
     public InventorySlot currentItem;
 
-    private int previousIndex;
 
-    Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
+    public int previousIndex;
+
+    public Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
     void Start()
     {
         CreateSlots();
+        SelectItem(0);
     }
 
     // Update is called once per frame
@@ -75,7 +77,7 @@ public class DisplayHotbar : MonoBehaviour
         if (previousItem != null)
         {
             Image previousItemImage = previousItem.GetComponent<Image>();
-            previousItemImage.color = new Color(1,1,1,0);;
+            previousItemImage.color = new Color(1,1,1,0);
         }
 
         if (slotIndex >= 0 && slotIndex < INVENTORY_SLOTS)
@@ -83,6 +85,7 @@ public class DisplayHotbar : MonoBehaviour
             previousIndex = slotIndex;
             currentItem = inventory.Container.Items[slotIndex];
             itemsDisplayed.ElementAt(slotIndex).Key.GetComponent<Image>().color = new Color(1,1,1,1);
+
         }
     }
 

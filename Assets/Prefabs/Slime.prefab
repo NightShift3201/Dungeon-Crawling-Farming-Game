@@ -197,9 +197,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundItemPrefab: {fileID: 2814943306564616137, guid: c8d6d3c91dc072f4da4fd9db3ee72d3c, type: 3}
   drops:
-  - {fileID: 11400000, guid: 4d61ed8b5fccb634d879d0152e1ff805, type: 2}
-  - {fileID: 11400000, guid: 85e1cbd966a7c3549aba811378a6ece3, type: 2}
-  chance: 5000000064000000
+  - drop: {fileID: 11400000, guid: 76c94c61bd844db49bedb1ee1797eb23, type: 2}
+    chance: 50
+    number: 0
+  - drop: {fileID: 11400000, guid: 76c94c61bd844db49bedb1ee1797eb23, type: 2}
+    chance: 70
+    number: 0
+  - drop: {fileID: 11400000, guid: 4d61ed8b5fccb634d879d0152e1ff805, type: 2}
+    chance: 80
+    number: 0
 --- !u!50 &445013427081708533
 Rigidbody2D:
   serializedVersion: 4

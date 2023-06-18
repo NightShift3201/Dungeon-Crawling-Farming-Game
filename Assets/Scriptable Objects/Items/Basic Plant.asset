@@ -16,9 +16,10 @@ MonoBehaviour:
   Id: 4
   type: 3
   description: 
-  growthTime: 0
+  timeBetweenStages: 20
   stages:
   - {fileID: 11400000, guid: 1b886f7dd524571458851960080a7cfb, type: 2}
   - {fileID: 11400000, guid: 461cdab7d2086a441be1aaaec1650ecf, type: 2}
   - {fileID: 11400000, guid: 359aca8222e4e944f8174681675df7d8, type: 2}
   - {fileID: 11400000, guid: a4321a4ff72d0814e903e6d36b10acf4, type: 2}
+  productItem: {fileID: 11400000, guid: 85e1cbd966a7c3549aba811378a6ece3, type: 2}

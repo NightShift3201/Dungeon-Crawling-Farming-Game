@@ -35,6 +35,10 @@ public class InventoryObject : ScriptableObject
         return null;
     }
 
+    public void ClearSlot(int index){
+        Container.Items[index].UpdateSlot(-1,null,0);
+    }
+
     public void MoveItem(InventorySlot item1, InventorySlot item2){
         InventorySlot temp = new InventorySlot(item2.ID, item2.item, item2.amount);
         item2.UpdateSlot(item1.ID, item1.item,item1.amount);

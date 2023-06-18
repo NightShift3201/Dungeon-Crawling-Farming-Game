@@ -6,18 +6,24 @@ public class LootDrop : MonoBehaviour
 {
 
     public GameObject groundItemPrefab;
-    public ItemObject[] drops = new ItemObject[0];
-    public int[] chance = new int[0];
-    //public int[] duplicationChance = new int[0];
+    public Drops[] drops = new Drops[0];
+
 
     public void DropLoot(){
         int randomNumber = Random.Range(0,100);
         for(int  i= 0; i<drops.Length;i++){
-            if(randomNumber<chance[i]){
+            if(randomNumber<drops[i].chance){
                 var obj = Instantiate(groundItemPrefab, transform.position, Quaternion.identity);
-                obj.GetComponent<GroundItem>().item = drops[i];
+                obj.GetComponent<GroundItem>().item = drops[i].drop;
                 return;
             }
         }
     }
+}
+
+[System.Serializable]
+public class Drops{
+    public ItemObject drop;
+    public int chance;
+    public int number;
 }

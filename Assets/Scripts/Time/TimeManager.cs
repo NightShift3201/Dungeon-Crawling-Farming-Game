@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.Rendering.Universal;
 
 public class TimeManager : MonoBehaviour
 {
 
     [SerializeField]
-    Light globalLight;
+    Light2D globalLight;
     [SerializeField]
     GameTimestamp timestamp;
     public float timescale;
@@ -16,11 +17,14 @@ public class TimeManager : MonoBehaviour
     TextMeshProUGUI time;
     [SerializeField]
     TextMeshProUGUI day;
+    [SerializeField]
+    PlantManager plantManager;
 
 
     void Start()
     {
         timestamp = new GameTimestamp();
+        UpdateUI();
         StartCoroutine(TimeUpdate());
     }
 
@@ -34,6 +38,8 @@ public class TimeManager : MonoBehaviour
             yield return new WaitForSeconds(1/timescale);
             Tick();
             UpdateUI();
+            UpdateGlobalLightIntensity();
+            plantManager.UpdatePlants();
         }
     }
 
@@ -62,7 +68,7 @@ public class TimeManager : MonoBehaviour
         day.text = timestamp.season.ToString() +" "+timestamp.day;
     }
 
-    private void UpdateGlobalLightIntensity()
+    public void UpdateGlobalLightIntensity()
     {
         float currentIntensity = globalLight.intensity;
 
@@ -73,7 +79,7 @@ public class TimeManager : MonoBehaviour
         {
             if (currentIntensity > 0.4f)
             {
-                currentIntensity -= ((1/timescale)/180)*0.4f/0.3f;
+                currentIntensity -= 1f/300;
                 globalLight.intensity = currentIntensity;
             }
         }
@@ -82,7 +88,7 @@ public class TimeManager : MonoBehaviour
         {
             if (currentIntensity < 1f)
             {
-                currentIntensity += ((1/timescale)/180)*0.4f;
+                currentIntensity += 1f/300;
                 globalLight.intensity = currentIntensity;
             }
         }

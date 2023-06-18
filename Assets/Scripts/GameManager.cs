@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject inventoryParent;
-    public int farmSceneIndex;
-    public float transportTime;
+    public GameObject panel;
+    public bool isActive = false;
+    public GameObject hotbar;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -19,16 +21,14 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.E)){
-            inventoryParent.GetComponent<PanelOpener>().OpenPanel();
+            if(panel!=null){
+                isActive = panel.activeSelf;
+                panel.SetActive(!isActive);
+                if(hotbar)
+                    hotbar.SetActive(isActive);
+            }
+
         }
 
-        if(Input.GetKey(KeyCode.LeftShift)){
-            transportTime-=Time.deltaTime;
-            if(transportTime<=0f)
-                SceneManager.LoadScene(farmSceneIndex,LoadSceneMode.Single);
-        }
-        else{
-            transportTime =3f;
-        }
     }
 }

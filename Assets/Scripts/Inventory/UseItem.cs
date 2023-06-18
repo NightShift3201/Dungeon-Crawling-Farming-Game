@@ -13,6 +13,9 @@ public class UseItem : MonoBehaviour
     Tilemap plantable;
     [SerializeField]
     Tilemap plants;
+    [SerializeField]
+    PlantManager plantManager;
+    public GameObject groundItemPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,29 +27,61 @@ public class UseItem : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(1)){
             Use();
+            Harvest();
         }
     }
 
     public void Use(){
         currentItem = hotbar.currentItem.item;
-        if(inventory.database.GetItem[currentItem.Id].type == ItemType.Plant){
-            PlantObject plantObject = inventory.database.GetItem[currentItem.Id] as PlantObject;
-            Plant(plantObject.stages[0]);
-            hotbar.currentItem.amount--;
+        if(currentItem!=null){
+            if(inventory.database.GetItem[currentItem.Id].type == ItemType.Plant){
+                PlantObject plantObject = inventory.database.GetItem[currentItem.Id] as PlantObject;
+                Plant(plantObject);
+            }
         }
 
+        
     }
 
-    public void Plant(Tile type){
+    public void Harvest(){
+        Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+        var position = plantable.WorldToCell(worldPoint);
+
+        if(plants.GetTile(position))
+        {
+            foreach(Plant plant in plantManager.Container){
+                if(plant.location.Equals(position)&&plant.harvestable){
+                    var obj = Instantiate(groundItemPrefab, position, Quaternion.identity);
+                    obj.GetComponent<GroundItem>().item = plant.productItem;
+                    plants.SetTile(position, null);
+                    plantManager.Container.Remove(plant);
+                    break;
+                }
+            }
+
+
+        }
+    }
+
+
+
+    public void Plant(PlantObject plantObject){
         Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             
         var position = plantable.WorldToCell(worldPoint);
 
         var tile = plantable.GetTile(position);
 
-        if(tile)
+        if(tile && !plants.GetTile(position))
         {
-            plants.SetTile(position, type);
+            plants.SetTile(position, plantObject.stages[0]);
+            Plant plant = new Plant(position, plantObject.timeBetweenStages, plantObject.stages, plantObject.productItem);
+            plantManager.Container.Add(plant);
+            hotbar.currentItem.amount--;
+            if(hotbar.currentItem.amount==0)
+                inventory.ClearSlot(hotbar.previousIndex);
         }
+
     }
 }
