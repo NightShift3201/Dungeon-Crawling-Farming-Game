@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public bool isActive = false;
     public GameObject hotbar;
 
+    public bool canOpenInventory = true;
+
 
 
     // Start is called before the first frame update
@@ -20,7 +22,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E)){
+        if(Input.GetKeyDown(KeyCode.E) && canOpenInventory){
             if(panel!=null){
                 isActive = panel.activeSelf;
                 panel.SetActive(!isActive);

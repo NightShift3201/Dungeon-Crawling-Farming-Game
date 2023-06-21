@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Float SO", menuName = "SOData/FloatSO")]
 public class FloatSO : ScriptableObject
 {
     [SerializeField]

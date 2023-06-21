@@ -12,12 +12,14 @@ public class DisplayShop : MonoBehaviour
     public void CreateSlots(List<ItemsForSale> inventory){
         for (int i = 0; i < inventory.Count; i++)
         {
-            var obj = Instantiate(ItemDisplayPrefab, Vector3.zero, Quaternion.identity,transform);
-            obj.GetComponent<RectTransform>().anchoredPosition = GetPosition(i);
-            obj.GetComponent<ItemDisplay>().item = inventory[i];
-            obj.transform.GetChild(0).GetComponent<Image>().sprite = inventory[i].product.uiDisplay;
-            obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inventory[i].product.name;
-            obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = inventory[i].price.ToString();
+            //if(inventory[i].neededItems.Count==0){
+                var obj = Instantiate(ItemDisplayPrefab, Vector3.zero, Quaternion.identity,transform);
+                obj.GetComponent<RectTransform>().anchoredPosition = GetPosition(i);
+                obj.GetComponent<ItemDisplay>().item = inventory[i];
+                obj.transform.GetChild(0).GetComponent<Image>().sprite = inventory[i].product.uiDisplay;
+                obj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inventory[i].product.name;
+                obj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = inventory[i].price.ToString();
+            //}
 
         }
     }

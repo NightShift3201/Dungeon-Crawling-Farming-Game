@@ -9,9 +9,12 @@ public class PlayerMoney : MonoBehaviour
     public int money;
     [SerializeField]
     TextMeshProUGUI display;
+    public IntSO MoneySO;
     // Start is called before the first frame update
     void Start()
     {
+        display = GameObject.Find("Amount").GetComponent<TextMeshProUGUI>();
+        money = MoneySO.Value;
         display.text="$"+money;
     }
 
@@ -21,9 +24,14 @@ public class PlayerMoney : MonoBehaviour
         
     }
 
-    public void BuyItem(int cost){
-        money-=cost;
-        UpdateMoney();
+    public bool BuyItem(int cost){
+        if(money>=cost){
+            money-=cost;
+            UpdateMoney();
+            return true;
+        }
+        return false;
+
     }
 
     public void SellItem(int cost){
@@ -32,6 +40,7 @@ public class PlayerMoney : MonoBehaviour
     }
 
     public void UpdateMoney(){
+        MoneySO.Value = money;
         display.text="$"+money;
     }
 }

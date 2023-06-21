@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -2.2260132}
-  m_SizeDelta: {x: -190.7297, y: -163.296}
+  m_AnchoredPosition: {x: -91.17099, y: 9.179799}
+  m_SizeDelta: {x: -350.5576, y: -185.9988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &129411397672787226
 CanvasRenderer:
@@ -91,8 +91,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventory: {fileID: 11400000, guid: 639fd35e30a16634d81f6cf6f8efa176, type: 2}
   inventoryPrefab: {fileID: 7589134700885956998, guid: 33005b2810f73404b952f0fa71c88fe9, type: 3}
-  X_START: -254
-  Y_START: 93
+  X_START: -195
+  Y_START: 100
   X_SPACE_BETWEEN_ITEMS: 55
   NUMBER_OF_COLUMN: 8
   Y_SPACE_BETWEEN_ITEMS: 55

@@ -21,11 +21,15 @@ public class Shop : MonoBehaviour
 public class ItemsForSale{
     public int price;
     public ItemObject product;
+
+    public List<RequiredItem> neededItems = new List<RequiredItem>();
     
 }
+
 [System.Serializable]
-public class CraftableItems{
-    public int price;
-    public ItemObject product;
-    public List<ItemObject> neededItems = new List<ItemObject>();
+public class RequiredItem{
+    public ItemObject item;
+    public int amount;
 }
+
+

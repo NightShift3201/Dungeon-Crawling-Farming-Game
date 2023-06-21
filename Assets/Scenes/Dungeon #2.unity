@@ -2450,6 +2450,7 @@ MonoBehaviour:
   panel: {fileID: 1011840430}
   isActive: 0
   hotbar: {fileID: 0}
+  canOpenInventory: 1
 --- !u!4 &1658546431
 Transform:
   m_ObjectHideFlags: 0
@@ -6508,6 +6509,10 @@ PrefabInstance:
     - target: {fileID: 2078380330783422278, guid: afc33270dc97d64438a7255867b38ae6, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591642329669952595, guid: afc33270dc97d64438a7255867b38ae6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6485889015436722424, guid: afc33270dc97d64438a7255867b38ae6, type: 3}
       propertyPath: m_LocalScale.x
