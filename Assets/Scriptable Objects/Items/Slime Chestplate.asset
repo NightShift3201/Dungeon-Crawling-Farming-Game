@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: Slime Chestplate
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: -629449016, guid: cf1ea5c5d936f70429daa7ea3676dd59, type: 3}
-  Id: 0
+  stackable: 0
+  data:
+    Name: 
+    Id: 3
   type: 1
   description: Chestplate made out of slime. Sticky!
+  value: 0
+  equipment: 2
   attackDamage: 0
   defenseStat: 2
   speedStat: 0

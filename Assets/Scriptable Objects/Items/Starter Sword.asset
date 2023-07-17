@@ -16,6 +16,8 @@ MonoBehaviour:
   Id: 0
   type: 1
   description: 'Starter sword. '
+  value: 0
+  equipment: 0
   attackDamage: 3
   defenseStat: 0
   speedStat: 0

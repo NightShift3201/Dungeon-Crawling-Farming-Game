@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e083f8be11faf3e41a95e4a60f7752f4, type: 3}
   m_Name: Hardened Slime Sword
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: -752715123, guid: cf1ea5c5d936f70429daa7ea3676dd59, type: 3}
-  Id: 7
+  uiDisplay: {fileID: 21300000, guid: 86e5f07571e260141b5b5dd969cd8eac, type: 3}
+  stackable: 0
+  data:
+    Name: 
+    Id: 0
   type: 1
   description: Made from slime
+  value: 0
+  equipment: 0
   attackDamage: 0
   defenseStat: 0
   speedStat: 0

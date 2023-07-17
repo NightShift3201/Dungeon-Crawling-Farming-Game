@@ -32,7 +32,7 @@ public class ItemDisplay : MonoBehaviour
         for (int i = 0; i < item.neededItems.Count; i++)
         {
             for(int j =0; j<playerInventory.Container.Items.Length;j++){
-                if(playerInventory.Container.Items[i].ID==item.neededItems[i].item.Id){
+                if(playerInventory.Container.Items[i].item.Id==item.neededItems[i].item.data.Id){
                     if(item.neededItems[i].amount <= playerInventory.Container.Items[i].amount){
                         count++;
                         break;
@@ -41,7 +41,6 @@ public class ItemDisplay : MonoBehaviour
             }
             
         }
-        Debug.Log(count==item.neededItems.Count);
         return (count==item.neededItems.Count);
         
     }
@@ -50,10 +49,11 @@ public class ItemDisplay : MonoBehaviour
         for (int i = 0; i < item.neededItems.Count; i++)
         {
             for(int j =0; j<playerInventory.Container.Items.Length;j++){
-                if(playerInventory.Container.Items[i].ID==item.neededItems[i].item.Id){
-                    playerInventory.Container.Items[i].amount-=item.neededItems[i].amount;
-                    if(playerInventory.Container.Items[i].amount==0)
-                        playerInventory.ClearSlot(i);
+                InventorySlot slot = playerInventory.Container.Items[i];
+                if(slot.item.Id==item.neededItems[i].item.data.Id){
+                    slot.amount-=item.neededItems[i].amount;
+                    if(slot.amount==0)
+                        slot.RemoveItem();
                     break;
                 }
             }

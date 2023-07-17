@@ -7,9 +7,14 @@ public class MoveDungeonRooms : MonoBehaviour
 {
     
     public int sceneIndex;
+    public TimeManager timeManager;
 
     void OnTriggerEnter2D(Collider2D other){
         if(other.tag=="Player"){
+            if(SceneManager.GetActiveScene().buildIndex == 0){
+                timeManager.SaveTimeLeft();
+            }
+
             SceneManager.LoadScene(sceneIndex,LoadSceneMode.Single);
         }
     }

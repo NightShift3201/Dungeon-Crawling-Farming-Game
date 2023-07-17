@@ -13,8 +13,11 @@ public class LootDrop : MonoBehaviour
         int randomNumber = Random.Range(0,100);
         for(int  i= 0; i<drops.Length;i++){
             if(randomNumber<drops[i].chance){
-                var obj = Instantiate(groundItemPrefab, transform.position, Quaternion.identity);
-                obj.GetComponent<GroundItem>().item = drops[i].drop;
+                for (int j = 0; j < drops[i].number; j++)
+                {
+                    var obj = Instantiate(groundItemPrefab, transform.position+new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f), Quaternion.identity);
+                    obj.GetComponent<GroundItem>().item = drops[i].drop;
+                }
                 return;
             }
         }

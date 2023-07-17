@@ -8,7 +8,7 @@ public class Shopkeeper : MonoBehaviour
 {
     public List<ItemsForSale> inventory = new List<ItemsForSale>();
 
-    public Inventory playerInventory;
+    public InventoryObject playerInventory;
 
     public GameObject shopPanel;
 
@@ -47,6 +47,12 @@ public class Shopkeeper : MonoBehaviour
     void Update(){
         if(Input.GetKeyDown(KeyCode.Escape)&&shopPanel.activeSelf){
             ClosePanel();
+
+        }
+        if(Input.GetKeyDown(KeyCode.E) && shopPanel.activeSelf){
+            shopPanel.SetActive(false);
+            display.ClearSlots();
+            GameManager.canOpenInventory = true;
         }
     }
 

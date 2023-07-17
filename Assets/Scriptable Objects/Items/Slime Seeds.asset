@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc6612a70fa8f441b1df6f0bb1d24b0, type: 3}
   m_Name: Slime Seeds
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 21300000, guid: 6cc5103edc9f0dd4f80e8274c73dfeac, type: 3}
-  Id: 5
+  uiDisplay: {fileID: 21300000, guid: 8b6541f59b932c240b1361a79213cf1b, type: 3}
+  stackable: 1
+  data:
+    Name: 
+    Id: 2
   type: 3
   description: 
+  value: 0
   timeBetweenStages: 100
   stages:
   - {fileID: 11400000, guid: 1b886f7dd524571458851960080a7cfb, type: 2}

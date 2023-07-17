@@ -20,12 +20,20 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     PlantManager plantManager;
 
+    public TimeSO GlobalTime;
+    public TimeSO TimeLeft;
+    public GameManager GameManager;
+
 
     void Start()
     {
-        timestamp = new GameTimestamp();
+        timestamp = GlobalTime.Value;
         UpdateUI();
         StartCoroutine(TimeUpdate());
+
+        if(GameManager.onFarm){
+            plantManager.TimePassed(GameTimestamp.MinutesBetween(TimeLeft.Value, GlobalTime.Value));
+        }
     }
 
     // Update is called once per frame
@@ -38,8 +46,11 @@ public class TimeManager : MonoBehaviour
             yield return new WaitForSeconds(1/timescale);
             Tick();
             UpdateUI();
-            UpdateGlobalLightIntensity();
-            plantManager.UpdatePlants();
+            if(GameManager.onFarm){
+                UpdateGlobalLightIntensity();
+                plantManager.UpdatePlants();
+            }
+
         }
     }
 
@@ -94,5 +105,14 @@ public class TimeManager : MonoBehaviour
         }
 
         globalLight.intensity = currentIntensity;
+    }
+
+    public void SaveTimeLeft(){
+
+        TimeLeft.Value = new GameTimestamp(timestamp.year, timestamp.season, timestamp.day, timestamp.hour, timestamp.minute);
+    }
+    
+    void OnApplicationQuit(){
+        SaveTimeLeft();
     }
 }

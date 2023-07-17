@@ -8,7 +8,7 @@ public class UseItem : MonoBehaviour
 
     public InventoryObject inventory;
     public DisplayHotbar hotbar;
-    Item currentItem;
+    InventorySlot currentItem;
     [SerializeField]
     Tilemap plantable;
     [SerializeField]
@@ -26,17 +26,20 @@ public class UseItem : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(1)){
+            currentItem = hotbar.currentItem;
             Use();
             Harvest();
         }
     }
 
     public void Use(){
-        currentItem = hotbar.currentItem.item;
-        if(currentItem!=null){
-            if(inventory.database.GetItem[currentItem.Id].type == ItemType.Plant){
-                PlantObject plantObject = inventory.database.GetItem[currentItem.Id] as PlantObject;
+        if(currentItem != null && currentItem.item.Id>=0){
+            if(currentItem.ItemObject.type == ItemType.Plant){
+                PlantObject plantObject = currentItem.ItemObject as PlantObject;
                 Plant(plantObject);
+            }
+            if(currentItem.ItemObject.type == ItemType.WaterCan){
+                Water();
             }
         }
 
@@ -50,12 +53,12 @@ public class UseItem : MonoBehaviour
 
         if(plants.GetTile(position))
         {
-            foreach(Plant plant in plantManager.Container){
+            foreach(Plant plant in plantManager.Container.Container){
                 if(plant.location.Equals(position)&&plant.harvestable){
-                    var obj = Instantiate(groundItemPrefab, position, Quaternion.identity);
+                    var obj = Instantiate(groundItemPrefab, position+new Vector3(0.5f,0.5f,0f), Quaternion.identity);
                     obj.GetComponent<GroundItem>().item = plant.productItem;
                     plants.SetTile(position, null);
-                    plantManager.Container.Remove(plant);
+                    plantManager.Container.Container.Remove(plant);
                     break;
                 }
             }
@@ -77,11 +80,26 @@ public class UseItem : MonoBehaviour
         {
             plants.SetTile(position, plantObject.stages[0]);
             Plant plant = new Plant(position, plantObject.timeBetweenStages, plantObject.stages, plantObject.productItem);
-            plantManager.Container.Add(plant);
+            plantManager.Container.Container.Add(plant);
             hotbar.currentItem.amount--;
             if(hotbar.currentItem.amount==0)
-                inventory.ClearSlot(hotbar.previousIndex);
+                inventory.Container.Items[hotbar.previousIndex].RemoveItem();
         }
 
+    }
+
+    public void Water(){
+        Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            
+        var position = plantable.WorldToCell(worldPoint);
+
+        var tile = plantable.GetTile(position);
+
+        if(tile && plants.GetTile(position))
+        {
+            //plantable.SetTile(position, ); set to watered land
+            Plant plant = plantManager.FindPlant(position);
+            plant.timeWatered = 100;
+        }//add level array to itemobject, add level to item
     }
 }

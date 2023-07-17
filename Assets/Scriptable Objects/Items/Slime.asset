@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9efe0428e8bf84cbd8a9638cc1dbfa, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 1126826061, guid: cf1ea5c5d936f70429daa7ea3676dd59, type: 3}
-  Id: 2
+  uiDisplay: {fileID: 21300000, guid: 5f7121656e85d454c80130ab819a8216, type: 3}
+  stackable: 1
+  data:
+    Name: 
+    Id: 3
   type: 2
   description: Slimey material that can be sold, used for fertilizer, or used to
     craft.
+  value: 0

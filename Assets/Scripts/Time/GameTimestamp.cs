@@ -23,6 +23,7 @@ public class GameTimestamp
         this.year = year;
         this.season = season;
         this.day = day;
+        this.hour = hour;
         this.minute =minute;
     }
 
@@ -54,5 +55,29 @@ public class GameTimestamp
             else
                 season++;
         }
+    }
+
+    public static int MinutesBetween(GameTimestamp time1, GameTimestamp time2)
+    {
+        int minutes1 = GetTotalMinutes(time1);
+        int minutes2 = GetTotalMinutes(time2);
+        return Mathf.Abs(minutes1 - minutes2);
+    }
+
+    private static int GetTotalMinutes(GameTimestamp time)
+    {
+        int days = time.day - 1;
+        int hours = time.hour;
+        int minutes = time.minute;
+
+        int totalMinutes = (days * 24 * 60) + (hours * 60) + minutes;
+
+        int seasonOffset = (int)time.season * 30 * 24 * 60; // Offset for season change
+        totalMinutes += seasonOffset;
+
+        int yearOffset = (time.year - 1) * 4 * 30 * 24 * 60; // Offset for year change (assuming 4 seasons per year)
+        totalMinutes += yearOffset;
+
+        return totalMinutes;
     }
 }

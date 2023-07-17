@@ -73,8 +73,11 @@ public class PlayerMovement : MonoBehaviour
             if(movement.x != 0 || movement.y !=0){
                 animator.SetFloat("LastHorizontal",movement.x);
                 animator.SetFloat("LastVertical",movement.y);
-                swordAnimator.SetFloat("LastHorizontal",movement.x);
-                swordAnimator.SetFloat("LastVertical",movement.y);
+                //if(swordAnimator){
+                    swordAnimator.SetFloat("LastHorizontal",movement.x);
+                    swordAnimator.SetFloat("LastVertical",movement.y);
+                //}
+
             }
         }
     

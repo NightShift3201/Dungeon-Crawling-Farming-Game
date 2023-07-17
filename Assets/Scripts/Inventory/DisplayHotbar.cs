@@ -20,7 +20,7 @@ public class DisplayHotbar : MonoBehaviour
 
     public int previousIndex;
 
-    public Dictionary<GameObject, InventorySlot> itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
+    public Dictionary<GameObject, InventorySlot> slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
     void Start()
     {
@@ -45,35 +45,38 @@ public class DisplayHotbar : MonoBehaviour
 
 
     public void CreateSlots(){
-        itemsDisplayed = new Dictionary<GameObject, InventorySlot>();
+        slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
         for (int i = 0; i < INVENTORY_SLOTS; i++)
         {
             var obj = Instantiate(inventoryPrefab, Vector3.zero, Quaternion.identity,transform);
             obj.GetComponent<RectTransform>().localPosition = GetPosition(i);
 
-            itemsDisplayed.Add(obj,inventory.Container.Items[i]);
+            slotsOnInterface.Add(obj,inventory.Container.Items[i]);
         }
     }
 
     public void UpdateSlots(){
-        foreach(KeyValuePair<GameObject, InventorySlot> _slot in itemsDisplayed){
-            if(_slot.Value.ID >= 0){
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.GetItem[_slot.Value.item.Id].uiDisplay;
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,1);
-                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+        foreach(KeyValuePair<GameObject, InventorySlot> _slot in slotsOnInterface){
+            if(_slot.Value.item != null){         
+                if(_slot.Value.item.Id >= 0){
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.Items[_slot.Value.item.Id].uiDisplay;
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,1);
+                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                }
+                else{
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,0);
+                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                }
             }
-            else{
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,0);
-                _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
-            }
+
         }
     }
 
     public void SelectItem(int slotIndex)
     {
 
-        GameObject previousItem = itemsDisplayed.ElementAt(previousIndex).Key;
+        GameObject previousItem = slotsOnInterface.ElementAt(previousIndex).Key;
         if (previousItem != null)
         {
             Image previousItemImage = previousItem.GetComponent<Image>();
@@ -84,7 +87,7 @@ public class DisplayHotbar : MonoBehaviour
         {
             previousIndex = slotIndex;
             currentItem = inventory.Container.Items[slotIndex];
-            itemsDisplayed.ElementAt(slotIndex).Key.GetComponent<Image>().color = new Color(1,1,1,1);
+            slotsOnInterface.ElementAt(slotIndex).Key.GetComponent<Image>().color = new Color(1,1,1,1);
 
         }
     }

@@ -9,10 +9,14 @@ public class PlayerAttack : MonoBehaviour
     public Animator animator;
     public Animator swordAnimator;
     public PlayerMovement movement;
+    public InventoryObject equipment;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //EquipmentObject equipmentObject = equipment.database.GetItem[equipment.Container.Items[6].ID] as EquipmentObject;
+        //GameObject obj = Instantiate(equipmentObject.weapon) as GameObject;
+        //obj.transform.parent = transform;
+        //swordAnimator = obj.GetComponent<Animator>();
     }
 
     // Update is called once per frame

@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class PlantObject : ItemObject
 {
     
-    public float timeBetweenStages;
+    public int timeBetweenStages;
     public List<Tile> stages = new List<Tile>();
     public ItemObject productItem;
     public void Awake(){

@@ -199,13 +199,13 @@ MonoBehaviour:
   drops:
   - drop: {fileID: 11400000, guid: 76c94c61bd844db49bedb1ee1797eb23, type: 2}
     chance: 50
-    number: 0
+    number: 1
   - drop: {fileID: 11400000, guid: 76c94c61bd844db49bedb1ee1797eb23, type: 2}
     chance: 70
-    number: 0
+    number: 2
   - drop: {fileID: 11400000, guid: 4d61ed8b5fccb634d879d0152e1ff805, type: 2}
     chance: 80
-    number: 0
+    number: 1
 --- !u!50 &445013427081708533
 Rigidbody2D:
   serializedVersion: 4
