@@ -16,10 +16,13 @@ public class UseItem : MonoBehaviour
     [SerializeField]
     PlantManager plantManager;
     public GameObject groundItemPrefab;
+
+    public Texture2D WateringCanTexture;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Cursor.visible = true;
     }
 
     // Update is called once per frame
@@ -30,15 +33,24 @@ public class UseItem : MonoBehaviour
             Use();
             Harvest();
         }
+        /*
+        if(currentItem != null && currentItem.item.Id>=0&&inventory.database.Items[currentItem.item.Id].type== ItemType.WaterCan){
+            Cursor.SetCursor(WateringCanTexture,Vector2.zero, CursorMode.Auto);
+        }
+        else{
+            Cursor.visible = false;
+        }
+        */
+        
     }
 
     public void Use(){
         if(currentItem != null && currentItem.item.Id>=0){
-            if(currentItem.ItemObject.type == ItemType.Plant){
-                PlantObject plantObject = currentItem.ItemObject as PlantObject;
+            if(inventory.database.Items[currentItem.item.Id].type == ItemType.Plant){
+                PlantObject plantObject = inventory.database.Items[currentItem.item.Id] as PlantObject;
                 Plant(plantObject);
             }
-            if(currentItem.ItemObject.type == ItemType.WaterCan){
+            if(inventory.database.Items[currentItem.item.Id].type== ItemType.WaterCan){
                 Water();
             }
         }

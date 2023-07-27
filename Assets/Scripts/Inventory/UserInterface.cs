@@ -14,16 +14,20 @@ public abstract class UserInterface : MonoBehaviour
 
     public Dictionary<GameObject, InventorySlot> slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
+
     void Start()
     {
         for (int i = 0; i < inventory.Container.Items.Length; i++)
         {
             inventory.Container.Items[i].parent = this;
         }
+
         CreateSlots();
         AddEvent(gameObject, EventTriggerType.PointerEnter, delegate { OnEnterInterface(gameObject); });
         AddEvent(gameObject, EventTriggerType.PointerExit, delegate { OnExitInterface(gameObject); });
     }
+
+
 
     // Update is called once per frame
     void Update()

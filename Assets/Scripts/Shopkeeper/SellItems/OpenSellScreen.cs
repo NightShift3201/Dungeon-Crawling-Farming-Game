@@ -4,14 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Shopkeeper : MonoBehaviour
+public class OpenSellScreen : MonoBehaviour
 {
-    public List<ItemsForSale> inventory = new List<ItemsForSale>();
-
 
     public GameObject shopPanel;
 
-    public DisplayShop display;
     private GameObject hotbar;
     public GameObject inventoryPanel;
     private GameManager GameManager;
@@ -25,7 +22,6 @@ public class Shopkeeper : MonoBehaviour
     public void OpenShopPanel(){
         if(!shopPanel.activeSelf){
             shopPanel.SetActive(true);
-            display.CreateSlots(inventory);
             hotbar.SetActive(false);
             inventoryPanel.SetActive(true);
             GameManager.canOpenInventory = false;
@@ -37,7 +33,6 @@ public class Shopkeeper : MonoBehaviour
     }
     void ClosePanel(){
         shopPanel.SetActive(false);
-        display.ClearSlots();
         hotbar.SetActive(true);
         inventoryPanel.SetActive(false);
         GameManager.canOpenInventory = true;
@@ -50,7 +45,6 @@ public class Shopkeeper : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.E) && shopPanel.activeSelf){
             shopPanel.SetActive(false);
-            display.ClearSlots();
             GameManager.canOpenInventory = true;
         }
     }

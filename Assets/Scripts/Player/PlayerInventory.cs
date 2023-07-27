@@ -20,6 +20,9 @@ public class PlayerInventory : MonoBehaviour
 
 
     }
+    private void Start(){
+
+    }
 
     private void Update(){
         if(Input.GetKeyDown(KeyCode.LeftShift)){
@@ -28,9 +31,10 @@ public class PlayerInventory : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Tab)){
             inventory.Load();
         }
+        if(Input.GetKeyDown(KeyCode.Backspace)){
+            inventory.Clear();
+        }
     }
 
-    private void OnApplicationQuit(){
-        inventory.Container.Items = new InventorySlot[32];
-    }
+
 }

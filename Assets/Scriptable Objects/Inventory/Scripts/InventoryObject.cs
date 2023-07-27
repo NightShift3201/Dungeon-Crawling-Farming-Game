@@ -115,7 +115,7 @@ public class InventoryObject : ScriptableObject
 
     [ContextMenu("Clear")]
     public void Clear(){
-        Container = new Inventory();
+        Container.Clear();
     }
     
 
@@ -124,6 +124,14 @@ public class InventoryObject : ScriptableObject
 [System.Serializable]
 public class Inventory{
     public InventorySlot[] Items = new InventorySlot[32];
+    public void Clear()
+    {
+        for (int i = 0; i < Items.Length; i++)
+        {
+            Items[i].item = new Item();
+            Items[i].amount = 0;
+        }
+    }
 }
 
 [System.Serializable]
@@ -147,6 +155,7 @@ public class InventorySlot{
     public InventorySlot(){
         item = new Item();
         amount= 0;
+
     }
     public InventorySlot(Item _item, int _amount){
         item = _item;
