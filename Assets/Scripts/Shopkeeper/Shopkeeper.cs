@@ -6,9 +6,10 @@ using TMPro;
 
 public class Shopkeeper : MonoBehaviour
 {
-    public List<ItemsForSale> inventory = new List<ItemsForSale>();
+    public List<ItemsForSale> sellableItems = new List<ItemsForSale>();
+    public List<ItemsForSale> craftableItems = new List<ItemsForSale>();
 
-
+    public int shopLevel;
     public GameObject shopPanel;
 
     public DisplayShop display;
@@ -25,7 +26,7 @@ public class Shopkeeper : MonoBehaviour
     public void OpenShopPanel(){
         if(!shopPanel.activeSelf){
             shopPanel.SetActive(true);
-            display.CreateSlots(inventory);
+            display.CreateSlots(sellableItems, shopLevel);
             hotbar.SetActive(false);
             inventoryPanel.SetActive(true);
             GameManager.canOpenInventory = false;

@@ -73,7 +73,7 @@ public class PlantTooltip : MonoBehaviour
 
         tooltipRectTransform.anchoredPosition = anchoredPosition;
         Plant plant = PlantManager.FindPlant(cellPosition);
-        tooltip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = plant.productItem.name +" Plant";
+        tooltip.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = plant.name +" Plant";
         if(plant.harvestable){
             tooltip.transform.GetChild(1).gameObject.SetActive(false);
             tooltip.transform.GetChild(2).gameObject.SetActive(true);

@@ -59,14 +59,14 @@ public class DisplayHotbar : MonoBehaviour
         foreach(KeyValuePair<GameObject, InventorySlot> _slot in slotsOnInterface){
             if(_slot.Value.item != null){         
                 if(_slot.Value.item.Id >= 0){
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = inventory.database.Items[_slot.Value.item.Id].uiDisplay;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,1);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().sprite = inventory.database.Items[_slot.Value.item.Id].uiDisplay;
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().color = new Color(1,1,1,1);
+                    _slot.Key.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
                 }
                 else{
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,0);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().sprite = null;
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().color = new Color(1,1,1,0);
+                    _slot.Key.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = "";
                 }
             }
 
@@ -79,15 +79,14 @@ public class DisplayHotbar : MonoBehaviour
         GameObject previousItem = slotsOnInterface.ElementAt(previousIndex).Key;
         if (previousItem != null)
         {
-            Image previousItemImage = previousItem.GetComponent<Image>();
-            previousItemImage.color = new Color(1,1,1,0);
+            previousItem.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (slotIndex >= 0 && slotIndex < INVENTORY_SLOTS)
         {
             previousIndex = slotIndex;
             currentItem = inventory.Container.Items[slotIndex];
-            slotsOnInterface.ElementAt(slotIndex).Key.GetComponent<Image>().color = new Color(1,1,1,1);
+            slotsOnInterface.ElementAt(slotIndex).Key.transform.GetChild(0).gameObject.SetActive(true);
 
         }
     }

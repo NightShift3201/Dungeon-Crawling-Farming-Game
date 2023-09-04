@@ -28,7 +28,7 @@ public class UseItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(1)){
+        if(Input.GetMouseButton(1)){
             currentItem = hotbar.currentItem;
             Use();
             Harvest();
@@ -50,7 +50,7 @@ public class UseItem : MonoBehaviour
                 PlantObject plantObject = inventory.database.Items[currentItem.item.Id] as PlantObject;
                 Plant(plantObject);
             }
-            if(inventory.database.Items[currentItem.item.Id].type== ItemType.WaterCan){
+            else if(inventory.database.Items[currentItem.item.Id].type== ItemType.WaterCan){
                 Water();
             }
         }
@@ -67,11 +67,19 @@ public class UseItem : MonoBehaviour
         {
             foreach(Plant plant in plantManager.Container.Container){
                 if(plant.location.Equals(position)&&plant.harvestable){
-                    var obj = Instantiate(groundItemPrefab, position+new Vector3(0.5f,0.5f,0f), Quaternion.identity);
-                    obj.GetComponent<GroundItem>().item = plant.productItem;
+                    foreach(PlantHarvest harvest in plant.harvests){
+                        for (int i = 0; i < Random.Range(harvest.minAmount,harvest.maxAmount+1); i++)
+                        {
+                            var obj = Instantiate(groundItemPrefab, position+new Vector3(0.5f+0.1f*i,0.5f+0.1f*i,0f), Quaternion.identity);
+                            obj.GetComponent<GroundItem>().item = harvest.productItem;
+                        }
+
+
+                    }
                     plants.SetTile(position, null);
                     plantManager.Container.Container.Remove(plant);
                     break;
+
                 }
             }
 
@@ -91,7 +99,7 @@ public class UseItem : MonoBehaviour
         if(tile && !plants.GetTile(position))
         {
             plants.SetTile(position, plantObject.stages[0]);
-            Plant plant = new Plant(position, plantObject.timeBetweenStages, plantObject.stages, plantObject.productItem);
+            Plant plant = new Plant(position, plantObject.timeBetweenStages, plantObject.stages,plantObject.harvests, plantObject.name);
             plantManager.Container.Container.Add(plant);
             hotbar.currentItem.amount--;
             if(hotbar.currentItem.amount==0)

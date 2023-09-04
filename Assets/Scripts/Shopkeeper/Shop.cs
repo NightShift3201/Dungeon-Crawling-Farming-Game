@@ -21,6 +21,7 @@ public class Shop : MonoBehaviour
 public class ItemsForSale{
     public int price;
     public ItemObject product;
+    public int requiredLevel;
 
     public List<RequiredItem> neededItems = new List<RequiredItem>();
     

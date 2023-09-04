@@ -18,14 +18,14 @@ MonoBehaviour:
     Items:
     - AllowedItems: 
       item:
-        Name: 
-        Id: -1
-      amount: 0
+        Name: Hardened Slime Sword
+        Id: 0
+      amount: 1
     - AllowedItems: 
       item:
-        Name: 
-        Id: -1
-      amount: 0
+        Name: Slime Seeds
+        Id: 2
+      amount: 4
     - AllowedItems: 
       item:
         Name: 

@@ -9,9 +9,16 @@ public class PlantObject : ItemObject
     
     public int timeBetweenStages;
     public List<Tile> stages = new List<Tile>();
-    public ItemObject productItem;
+    public List<PlantHarvest> harvests;
+    public int deathChance;
     public void Awake(){
         type = ItemType.Plant;
     }
 
+}
+
+public class PlantHarvest{
+    public ItemObject productItem;
+    public int minAmount;
+    public int maxAmount;
 }

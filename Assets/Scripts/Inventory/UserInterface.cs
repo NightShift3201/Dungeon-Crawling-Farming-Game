@@ -15,6 +15,8 @@ public abstract class UserInterface : MonoBehaviour
     public Dictionary<GameObject, InventorySlot> slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
     // Start is called before the first frame update
 
+    public GameObject TooltipPrefab;
+
     void Start()
     {
         for (int i = 0; i < inventory.Container.Items.Length; i++)
@@ -33,7 +35,11 @@ public abstract class UserInterface : MonoBehaviour
     void Update()
     {
         UpdateSlots();
-
+        //click and drop
+        //attaches to mouse code
+        if(MouseData.isItemAttachedToMouse&&MouseData.tempItemBeingDragged != null){
+            MouseData.tempItemBeingDragged.GetComponent<RectTransform>().position = Input.mousePosition;
+        }
     }
 
 
@@ -45,14 +51,14 @@ public abstract class UserInterface : MonoBehaviour
     public void UpdateSlots(){
         foreach(KeyValuePair<GameObject, InventorySlot> _slot in slotsOnInterface){
                 if(_slot.Value.item.Id >= 0){
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _slot.Value.ItemObject.uiDisplay;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,1);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().sprite = _slot.Value.ItemObject.uiDisplay;
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().color = new Color(1,1,1,1);
+                    _slot.Key.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = _slot.Value.amount == 1 ? "" : _slot.Value.amount.ToString("n0");
                 }
                 else{
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                    _slot.Key.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1,1,1,0);
-                    _slot.Key.GetComponentInChildren<TextMeshProUGUI>().text = "";
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().sprite = null;
+                    _slot.Key.transform.GetChild(1).GetComponentInChildren<Image>().color = new Color(1,1,1,0);
+                    _slot.Key.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = "";
                 }
 
         }
@@ -69,8 +75,15 @@ public abstract class UserInterface : MonoBehaviour
     public void OnEnter(GameObject obj){
         MouseData.SlotHoveredOver = obj;
 
-
     }
+
+    public IEnumerator showTooltip(GameObject obj){
+        yield return new WaitForSecondsRealtime(0.5f);
+        var tooltip = Instantiate(TooltipPrefab, Vector3.zero, Quaternion.identity);
+        
+    } 
+
+    
     public void OnExit(GameObject obj){
         MouseData.SlotHoveredOver = null;
 
@@ -125,12 +138,58 @@ public abstract class UserInterface : MonoBehaviour
 
 
 
+    
+
+
+    public void OnSlotClicked(GameObject obj)
+    {
+        InventorySlot clickedSlotData = slotsOnInterface[obj];
+
+        if (!MouseData.isItemAttachedToMouse)
+        {
+            if (clickedSlotData.item != null)
+            {
+                MouseData.isItemAttachedToMouse = true;
+                MouseData.clickedSlot = clickedSlotData;
+                
+
+                // Create a temporary item being dragged
+                MouseData.tempItemBeingDragged = CreateTempItem(obj);
+            }
+        }
+        else if (MouseData.SlotHoveredOver)
+        {
+
+            // Clicked on the same slot to drop the item
+            InventorySlot mouseHoverSlotData = MouseData.interfaceMouseIsOver.slotsOnInterface[MouseData.SlotHoveredOver];
+            if(inventory.SwapItems(MouseData.clickedSlot, mouseHoverSlotData)){
+                            Debug.Log("here");
+                MouseData.isItemAttachedToMouse = false;
+                MouseData.clickedSlot = null;
+
+                // Destroy the temporary item being dragged
+                if (MouseData.tempItemBeingDragged != null)
+                {
+                    Destroy(MouseData.tempItemBeingDragged);
+                    MouseData.tempItemBeingDragged = null;
+                }
+            }
+
+
+        }
+
+    }
+
+
+
 }
 
 public static class MouseData{
     public static UserInterface interfaceMouseIsOver;
     public static GameObject tempItemBeingDragged;
     public static GameObject SlotHoveredOver;
+    public static bool isItemAttachedToMouse = false;
+    public static InventorySlot clickedSlot;
 
 }
 

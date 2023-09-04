@@ -81,20 +81,22 @@ public class PlantManager : MonoBehaviour
 
 [System.Serializable]
 public class Plant{
+    public string name;
     public bool harvestable;
     public Vector3Int location;
     public int timeBetweenStages;
     public int timeToNextStage;
-    public List<Tile> stages = new List<Tile>();
+    public List<Tile> stages;
+    public List<PlantHarvest> harvests;
     public int stageIndex;
-    public ItemObject productItem;
     public int timeWatered;
 
-    public Plant(Vector3Int location, int timeBetweenStages, List<Tile> stages, ItemObject productItem){
+    public Plant(Vector3Int location, int timeBetweenStages, List<Tile> stages, List<PlantHarvest> harvests, string name){
         this.location = location;
         this.timeBetweenStages = timeBetweenStages;
         this.stages = stages;
-        this.productItem = productItem;
+        this.harvests = harvests;
+        this.name = name;
         timeToNextStage=  timeBetweenStages;
         stageIndex = 1;
         harvestable = false;
